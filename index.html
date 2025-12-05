@@ -1,485 +1,407 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aegean Breath - Breath-Hold Training for Freediving & Apnea</title>
-    <meta name="description" content="Professional breath-hold training app with auto-generated CO2 and O2 tables. Perfect for freedivers, spearfishers, and breathwork enthusiasts.">
+    <title>Aegean Breath | Professional Breath-Hold Training</title>
+    <meta name="description" content="The ultimate breath-hold training app for freedivers and spearos. Auto-generated tables, heart rate monitoring, and no subscriptions.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'aegean-dark': '#001A26',
-                        'aegean-peach': '#FABD99',
-                        'aegean-orange': '#FF8C69',
-                        'aegean-surface': '#001A26',
+                        'aegean': {
+                            dark: '#001A26',    // DeepCalmDark
+                            surface: '#002838',  // Slightly lighter for cards
+                            teal: '#4DB6AC',   // AegeanWater - Ocean teal
+                            tealDark: '#176176',  // OceanLayersTeal - Deeper teal
+                            text: '#FFFFFF',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
                     }
                 }
             }
         }
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         body {
-            font-family: 'Inter', sans-serif;
+            background-color: #001A26;
+            color: #ffffff;
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #001A26 0%, #002233 100%);
-        }
+        /* M3 Style Elevation & Surface */
+        .surface-1 { background-color: rgba(77, 182, 172, 0.05); }
+        .surface-2 { background-color: rgba(77, 182, 172, 0.08); }
+        .surface-3 { background-color: rgba(77, 182, 172, 0.11); }
         
-        .gradient-accent {
-            background: linear-gradient(135deg, #FABD99 0%, #FF8C69 100%);
+        .glass-panel {
+            background: rgba(0, 26, 38, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(77, 182, 172, 0.1);
         }
-        
+
         .gradient-text {
-            background: linear-gradient(135deg, #FABD99 0%, #FF8C69 100%);
+            background: linear-gradient(135deg, #4DB6AC 0%, #176176 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-        
-        .card-hover {
-            transition: all 0.3s ease;
+
+        .phone-frame {
+            border: 8px solid #1e293b;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #001A26;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(250, 189, 153, 0.2);
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #1e293b;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 20;
         }
-        
-        .fade-in {
-            animation: fadeIn 0.8s ease-in;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        ::-webkit-scrollbar-track {
+            background: #001A26;
         }
-        
-        .smooth-scroll {
-            scroll-behavior: smooth;
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4DB6AC;
         }
     </style>
 </head>
-<body class="gradient-bg text-white smooth-scroll">
+<body class="antialiased selection:bg-aegean-teal selection:text-aegean-dark">
+
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-aegean-dark/90 backdrop-blur-sm border-b border-aegean-peach/20">
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold gradient-text">Aegean Breath</h1>
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3">
+                    <img src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" alt="Aegean Breath Logo" class="w-10 h-10 rounded-full shadow-lg">
+                    <span class="font-bold text-xl tracking-tight">Aegean Breath</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#features" class="text-gray-300 hover:text-aegean-peach transition">Features</a>
-                    <a href="#how-it-works" class="text-gray-300 hover:text-aegean-peach transition">How It Works</a>
-                    <a href="#screenshots" class="text-gray-300 hover:text-aegean-peach transition">Screenshots</a>
-                    <a href="#safety" class="text-gray-300 hover:text-aegean-peach transition">Safety</a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-sm font-medium text-gray-300 hover:text-aegean-teal transition-colors">Features</a>
+                    <a href="#how-it-works" class="text-sm font-medium text-gray-300 hover:text-aegean-teal transition-colors">How it Works</a>
+                    <a href="#pricing" class="text-sm font-medium text-gray-300 hover:text-aegean-teal transition-colors">Pricing</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-teal text-aegean-dark px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-aegean-tealDark transition-all transform hover:scale-105 shadow-lg shadow-aegean-teal/20">
+                        Download App
+                    </a>
                 </div>
-                <div class="hidden md:block">
-                    <button class="gradient-accent text-aegean-dark px-6 py-2 rounded-full font-semibold hover:opacity-90 transition">
-                        Download
-                    </button>
-                </div>
-                <button class="md:hidden text-gray-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 fade-in">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                    <span class="gradient-text">Build Calm,</span><br>
-                    <span class="text-white">Not Stress</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                    Professional breath-hold training with auto-generated CO2 and O2 tables. 
-                    Perfect for freedivers, spearfishers, and breathwork enthusiasts.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <button class="gradient-accent text-aegean-dark px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-lg">
-                        Start Free Trial
-                    </button>
-                    <button class="border-2 border-aegean-peach text-aegean-peach px-8 py-4 rounded-full font-semibold text-lg hover:bg-aegean-peach/10 transition">
-                        Learn More
-                    </button>
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-aegean-teal/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-aegean-tealDark/10 rounded-full blur-3xl -z-10 animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left space-y-8">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full surface-2 border border-aegean-teal/20">
+                        <span class="w-2 h-2 rounded-full bg-aegean-teal animate-pulse"></span>
+                        <span class="text-sm font-medium text-aegean-teal">Now available on Android</span>
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                        Master Your <br>
+                        <span class="gradient-text">Breath Hold</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        CO2 & O2 tables tailored to your physiology. Designed for freedivers, spearos, and anyone seeking calm.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-gradient-to-r from-aegean-teal to-aegean-tealDark text-aegean-dark px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all transform hover:translate-y-[-2px] shadow-xl shadow-aegean-teal/20 flex items-center justify-center gap-2">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.523 15.3414 17.563 15.3414 17.563 15.3414C17.563 15.3414 17.563 15.3414 17.523 15.3414ZM6.361 3.30672L3.958 0.903687C3.806 0.751687 3.559 0.751687 3.406 0.903687C3.254 1.05569 3.254 1.30269 3.406 1.45469L5.727 3.77569C4.069 4.83869 2.924 6.56269 2.608 8.59669H21.425C21.109 6.56369 19.965 4.83969 18.307 3.77569L20.627 1.45469C20.78 1.30269 20.78 1.05569 20.627 0.903687C20.475 0.751687 20.228 0.751687 20.076 0.903687L17.673 3.30672C16.102 2.40272 14.169 1.84969 12.034 1.84969C9.899 1.84969 7.965 2.40272 6.361 3.30672ZM6.849 10.9667C6.849 10.2467 7.433 9.66269 8.153 9.66269C8.873 9.66269 9.457 10.2467 9.457 10.9667C9.457 11.6867 8.873 12.2707 8.153 12.2707C7.433 12.2707 6.849 11.6867 6.849 10.9667ZM14.578 10.9667C14.578 10.2467 15.162 9.66269 15.882 9.66269C16.602 9.66269 17.186 10.2467 17.186 10.9667C17.186 11.6867 16.602 12.2707 15.882 12.2707C15.162 12.2707 14.578 11.6867 14.578 10.9667Z"/></svg>
+                            Get it on Google Play
+                        </a>
+                        <a href="#features" class="px-8 py-4 rounded-full font-bold text-lg border border-aegean-teal/30 hover:bg-aegean-teal/10 transition-colors text-aegean-teal inline-block text-center">
+                            View Features
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-400">
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4 text-aegean-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            14-Day Free Trial
+                        </span>
+                        <span class="flex items-center gap-1">
+                            <svg class="w-4 h-4 text-aegean-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            No Subscription
+                        </span>
+                    </div>
                 </div>
-                <p class="text-sm text-gray-400 mt-4">14-day free trial • No credit card required</p>
+
+                <!-- Phone Mockup -->
+                <div class="relative lg:h-[600px] flex items-center justify-center animate-float">
+                    <div class="phone-frame w-[280px] h-[580px]">
+                        <div class="phone-notch"></div>
+                        <!-- Simulated App UI -->
+                        <div class="h-full w-full bg-[#001A26] p-4 pt-12 flex flex-col relative overflow-hidden">
+                            <!-- App Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div class="text-aegean-teal font-bold text-lg">Training</div>
+                                <div class="w-8 h-8 rounded-full bg-aegean-teal/20"></div>
+                            </div>
+                            
+                            <!-- Main Timer Circle -->
+                            <div class="w-48 h-48 rounded-full border-4 border-aegean-teal/20 mx-auto mb-8 flex items-center justify-center relative">
+                                <div class="absolute inset-0 rounded-full border-4 border-aegean-teal border-t-transparent animate-spin" style="animation-duration: 3s;"></div>
+                                <div class="text-center">
+                                    <div class="text-xs text-gray-400 uppercase tracking-widest mb-1">Hold</div>
+                                    <div class="text-4xl font-mono font-bold text-white">1:45</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Stats Row -->
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-aegean-teal/10 p-3 rounded-xl">
+                                    <div class="text-xs text-gray-400 mb-1">Heart Rate</div>
+                                    <div class="text-xl font-bold text-aegean-teal">62 <span class="text-xs text-gray-400">BPM</span></div>
+                                </div>
+                                <div class="bg-aegean-teal/10 p-3 rounded-xl">
+                                    <div class="text-xs text-gray-400 mb-1">O2 Level</div>
+                                    <div class="text-xl font-bold text-aegean-teal">98%</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Table List -->
+                            <div class="space-y-2">
+                                <div class="h-12 bg-aegean-teal/5 rounded-lg w-full flex items-center px-3 border border-aegean-teal/10">
+                                    <div class="w-2 h-2 rounded-full bg-green-400 mr-3"></div>
+                                    <div class="text-xs text-gray-300">Warmup Breath</div>
+                                </div>
+                                <div class="h-12 bg-aegean-teal/20 rounded-lg w-full flex items-center px-3 border border-aegean-teal">
+                                    <div class="w-2 h-2 rounded-full bg-aegean-teal mr-3 animate-pulse"></div>
+                                    <div class="text-xs text-white font-medium">Current Hold</div>
+                                </div>
+                                <div class="h-12 bg-aegean-teal/5 rounded-lg w-full flex items-center px-3 border border-aegean-teal/10 opacity-50">
+                                    <div class="w-2 h-2 rounded-full bg-gray-600 mr-3"></div>
+                                    <div class="text-xs text-gray-300">Recovery Breath</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Everything you need for safe, effective breath-hold training
-                </p>
+    <!-- Value Prop / Features Grid -->
+    <section id="features" class="py-24 bg-aegean-surface/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Why Training with Aegean?</h2>
+                <p class="text-xl text-gray-400">We combine professional freediving principles with modern technology to help you safely extend your limits.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Smart Training Tables</h3>
-                    <p class="text-gray-300">
-                        Auto-generated CO2 and O2 tables adapt to your max breath-hold. 
-                        Train at the perfect intensity every time.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Auto-Generated Tables</h3>
+                    <p class="text-gray-400 leading-relaxed">Based on your personal best, we calculate the perfect CO2 and O2 tables to push your limits safely without overtraining.</p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Progress Tracking</h3>
-                    <p class="text-gray-300">
-                        Track your max breath-hold and watch your progress over time. 
-                        Comprehensive session history with detailed metrics.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Bluetooth Heart Rate</h3>
+                    <p class="text-gray-400 leading-relaxed">Connect your HR monitor to see exactly how your body reacts to low oxygen. Visualize your dive reflex in real-time.</p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Heart Rate Monitoring</h3>
-                    <p class="text-gray-300">
-                        Connect Bluetooth heart rate monitors for real-time tracking 
-                        during your training sessions.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Eyes-Free Training</h3>
+                    <p class="text-gray-400 leading-relaxed">Guided by "Alfie", our voice assistant. Haptic vibrations and audio cues let you train with your eyes closed for maximum relaxation.</p>
                 </div>
 
                 <!-- Feature 4 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Audio & Haptic Cues</h3>
-                    <p class="text-gray-300">
-                        Voice guidance and vibration feedback keep you on track 
-                        without looking at your device.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Contraction Tracking</h3>
+                    <p class="text-gray-400 leading-relaxed">Log when your contractions start. Analyze your tolerance phase and learn to get comfortable with the uncomfortable.</p>
                 </div>
 
                 <!-- Feature 5 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Privacy First</h3>
-                    <p class="text-gray-300">
-                        All data stored locally on your device. No cloud sync, 
-                        no data collection, complete privacy.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Offline & Private</h3>
+                    <p class="text-gray-400 leading-relaxed">Your data stays on your device. No accounts, no cloud sync, no internet required. Train anywhere, even on a boat.</p>
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-8 border border-aegean-peach/20 card-hover">
-                    <div class="w-16 h-16 gradient-accent rounded-xl flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                        </svg>
+                <div class="p-8 rounded-3xl surface-1 hover:surface-2 transition-colors border border-white/5">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-aegean-teal to-aegean-tealDark flex items-center justify-center text-aegean-dark mb-6">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Contraction Tracking</h3>
-                    <p class="text-gray-300">
-                        Detailed performance metrics including contraction timestamps 
-                        to help you understand your body's responses.
-                    </p>
+                    <h3 class="text-xl font-bold mb-3">Modern Interface</h3>
+                    <p class="text-gray-400 leading-relaxed">Built with Material Design 3. A beautiful, dark-mode-first experience that's easy on the eyes during night training.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 bg-aegean-surface/30">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">How It Works</h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Get started in three simple steps
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="text-center">
-                    <div class="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold text-aegean-dark">
-                        1
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Set Your Max</h3>
-                    <p class="text-gray-300">
-                        Do a "Max Breath Hold" attempt once. We'll use this to tailor 
-                        all training tables to your current level.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold text-aegean-dark">
-                        2
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Train Smart</h3>
-                    <p class="text-gray-300">
-                        Use auto-generated CO2 and O2 tables that adapt to your progress. 
-                        Train at the right intensity every session.
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold text-aegean-dark">
-                        3
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Track Progress</h3>
-                    <p class="text-gray-300">
-                        Monitor your improvements over time with detailed session history 
-                        and performance metrics.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Screenshots Section -->
-    <section id="screenshots" class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">See It In Action</h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Beautiful, intuitive interface designed for focused training
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Home+Screen" alt="Home Screen" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Home Screen</h3>
-                    <p class="text-gray-300 text-sm">Quick access to all training features</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Training+Table" alt="Training Table" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Training Tables</h3>
-                    <p class="text-gray-300 text-sm">Auto-generated CO2 and O2 tables</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Session+History" alt="Session History" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Session History</h3>
-                    <p class="text-gray-300 text-sm">Track your progress over time</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Max+Breath+Hold" alt="Max Breath Hold" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Max Breath Hold</h3>
-                    <p class="text-gray-300 text-sm">Record and track your personal best</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Active+Training" alt="Active Training" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Active Training</h3>
-                    <p class="text-gray-300 text-sm">Guided sessions with audio cues</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-aegean-peach/20">
-                    <img src="https://placehold.co/400x800/001A26/FABD99?text=Settings" alt="Settings" class="w-full rounded-xl mb-4 shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Settings</h3>
-                    <p class="text-gray-300 text-sm">Customize your training experience</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-aegean-surface/30">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Perfect For</h2>
-                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Whether you're a beginner or competitive athlete
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-xl p-6 border border-aegean-peach/20 text-center">
-                    <div class="text-4xl mb-4">🏊</div>
-                    <h3 class="text-xl font-bold mb-2">Freedivers</h3>
-                    <p class="text-gray-300 text-sm">Competitive and recreational freedivers</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-xl p-6 border border-aegean-peach/20 text-center">
-                    <div class="text-4xl mb-4">🎣</div>
-                    <h3 class="text-xl font-bold mb-2">Spearfishers</h3>
-                    <p class="text-gray-300 text-sm">Improve your bottom time</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-xl p-6 border border-aegean-peach/20 text-center">
-                    <div class="text-4xl mb-4">🧘</div>
-                    <h3 class="text-xl font-bold mb-2">Breathwork</h3>
-                    <p class="text-gray-300 text-sm">Stress relief and relaxation</p>
-                </div>
-                
-                <div class="bg-aegean-surface/50 backdrop-blur-sm rounded-xl p-6 border border-aegean-peach/20 text-center">
-                    <div class="text-4xl mb-4">🏄</div>
-                    <h3 class="text-xl font-bold mb-2">Surfers</h3>
-                    <p class="text-gray-300 text-sm">Wipeout training and confidence</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Safety Section -->
-    <section id="safety" class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-gradient-to-br from-aegean-peach/20 to-aegean-orange/20 rounded-3xl p-8 md:p-12 border border-aegean-peach/30">
-                <div class="text-center mb-8">
-                    <div class="w-20 h-20 gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-10 h-10 text-aegean-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-4">Safety First</h2>
-                </div>
-                <div class="space-y-6 text-lg text-gray-200">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-6 h-6 gradient-accent rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-4 h-4 text-aegean-dark" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <p><strong class="text-white">Never train in water, driving, or standing.</strong> Always practice lying on a bed or sofa, in a safe environment with no risk of falling.</p>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-6 h-6 gradient-accent rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-4 h-4 text-aegean-dark" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <p>This app is a <strong class="text-white">training aid, not a medical device.</strong> Always consult with a healthcare professional if you have any concerns.</p>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 w-6 h-6 gradient-accent rounded-full flex items-center justify-center mr-4 mt-1">
-                            <svg class="w-4 h-4 text-aegean-dark" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <p>Start gradually and listen to your body. <strong class="text-white">Stop immediately</strong> if you feel dizzy, lightheaded, or unwell.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                Ready to Start Training?
-            </h2>
-            <p class="text-xl text-gray-300 mb-8">
-                Join freedivers and breathwork enthusiasts who trust Aegean Breath for their training
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button class="gradient-accent text-aegean-dark px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-lg">
-                    Download Now
-                </button>
-                <button class="border-2 border-aegean-peach text-aegean-peach px-8 py-4 rounded-full font-semibold text-lg hover:bg-aegean-peach/10 transition">
-                    Learn More
-                </button>
-            </div>
-            <p class="text-sm text-gray-400 mt-6">
-                Available on Android • 14-day free trial • One-time purchase
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="border-t border-aegean-peach/20 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <!-- How it works / Steps -->
+    <section id="how-it-works" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h3 class="text-2xl font-bold gradient-text mb-4">Aegean Breath</h3>
-                    <p class="text-gray-400 text-sm">
-                        Professional breath-hold training for freedivers and breathwork enthusiasts.
-                    </p>
+                    <h2 class="text-3xl md:text-5xl font-bold mb-8">Simple, Scientific Approach</h2>
+                    <div class="space-y-10">
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-aegean-teal flex items-center justify-center font-bold text-aegean-teal text-xl">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 text-white">Set Your Baseline</h3>
+                                <p class="text-gray-400">Perform a simple "Best Effort" test. We use this single data point to calibrate the entire app to your current fitness level.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-aegean-teal flex items-center justify-center font-bold text-aegean-teal text-xl">2</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 text-white">Select Your Goal</h3>
+                                <p class="text-gray-400">Choose CO2 tables to build tolerance to the urge to breathe, or O2 tables to adapt to low oxygen levels.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full border-2 border-aegean-teal flex items-center justify-center font-bold text-aegean-teal text-xl">3</div>
+                            <div>
+                                <h3 class="text-xl font-bold mb-2 text-white">Follow the Guide</h3>
+                                <p class="text-gray-400">Start the table. Alfie (audio guide) will tell you when to breathe and when to hold. Just relax and follow along.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#features" class="hover:text-aegean-peach transition">Features</a></li>
-                        <li><a href="#how-it-works" class="hover:text-aegean-peach transition">How It Works</a></li>
-                        <li><a href="#screenshots" class="hover:text-aegean-peach transition">Screenshots</a></li>
-                        <li><a href="#safety" class="hover:text-aegean-peach transition">Safety</a></li>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-aegean-teal/10 blur-3xl rounded-full"></div>
+                    <!-- Abstract visual representation of tables -->
+                    <div class="relative bg-aegean-surface/80 backdrop-blur-xl p-8 rounded-3xl border border-white/10">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between text-sm text-gray-400 mb-4">
+                                <span>CO2 Tolerance Table</span>
+                                <span>22 min</span>
+                            </div>
+                            <!-- Bars -->
+                            <div class="h-4 w-full bg-white/5 rounded-full overflow-hidden flex">
+                                <div class="h-full bg-green-400/50 w-[20%]"></div>
+                                <div class="h-full bg-aegean-teal w-[15%]"></div>
+                                <div class="h-full bg-green-400/50 w-[18%]"></div>
+                                <div class="h-full bg-aegean-teal w-[17%]"></div>
+                                <div class="h-full bg-green-400/50 w-[15%]"></div>
+                                <div class="h-full bg-aegean-teal w-[20%]"></div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                <span>Hold times increase &rarr;</span>
+                                <span>Rest times decrease &larr;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / USP -->
+    <section id="pricing" class="py-24 bg-gradient-to-b from-aegean-dark to-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">Stop Renting Your Training</h2>
+            <p class="text-xl text-gray-400 mb-12">Most training apps charge you every month. Aegean Breath is different.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <div class="p-8 rounded-3xl border border-white/10 bg-white/5">
+                    <h3 class="text-lg font-semibold text-gray-400 mb-2">The Other Guys</h3>
+                    <div class="text-3xl font-bold text-gray-300 mb-4">$4.99 <span class="text-base font-normal">/ month</span></div>
+                    <ul class="space-y-3 text-left text-sm text-gray-400">
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Recurring payments</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Requires internet</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Data tracking</li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-aegean-peach transition">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-aegean-peach transition">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-aegean-peach transition">Safety Guidelines</a></li>
+                
+                <div class="p-8 rounded-3xl border-2 border-aegean-teal bg-aegean-teal/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-aegean-teal text-aegean-dark text-xs font-bold px-3 py-1 rounded-bl-lg">BEST VALUE</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Aegean Breath</h3>
+                    <div class="text-3xl font-bold text-aegean-teal mb-4">One-Time</div>
+                    <p class="text-sm text-gray-400 mb-4">Pay once, own it forever.</p>
+                    <ul class="space-y-3 text-left text-sm text-gray-300">
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 14-Day Free Trial</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Lifetime Updates</li>
+                        <li class="flex items-center gap-2"><svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Offline & Private</li>
                     </ul>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Download</h4>
-                    <div class="space-y-3">
-                        <div class="bg-aegean-surface/50 rounded-lg p-3 border border-aegean-peach/20">
-                            <p class="text-xs text-gray-400 mb-1">Coming Soon</p>
-                            <p class="text-sm font-semibold">Google Play Store</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-aegean-peach/20 pt-8 text-center text-gray-400 text-sm">
-                <p>&copy; 2024 Aegean Breath. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    <!-- Safety Footer -->
+    <section class="py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 flex items-start gap-4">
+                <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <div>
+                    <h4 class="font-bold text-red-400 mb-1">Safety Warning</h4>
+                    <p class="text-sm text-gray-400">NEVER practice breath holding in water, while driving, or standing up. Always train dry, lying down on a soft surface like a bed or sofa. Blackouts can happen without warning. Train safe.</p>
+                </div>
+            </div>
+            
+            <div class="mt-16 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-gray-400 text-sm">
+                    &copy; 2024 Aegean Breath. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm font-medium">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                    <a href="mailto:support@aegeanbreath.com" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>
-
