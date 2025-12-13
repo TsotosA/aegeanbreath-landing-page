@@ -148,7 +148,7 @@ The App's code structure demonstrates our commitment to privacy:
 
 If you have questions, concerns, or requests regarding this Privacy Policy or your data, please contact us at:
 
-**Email**: [Your Email Address]  
+**Email**: tsotos@gmail.com  
 **App Package**: com.aegeanbreath  
 **Version**: 1.0
 
