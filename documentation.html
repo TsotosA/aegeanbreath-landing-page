@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y00619CGQ4";
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y00619CGQ4');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Aegean Breath</title>
+    <meta name="description" content="User guide and documentation for Aegean Breath app. Learn how to create tables, track progress, and use advanced features.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aegean': {
+                            dark: '#011A27',        // AegeanDeepSea
+                            surface: '#063852',     // AegeanSurface
+                            cyan: '#00E5FF',        // AegeanCyan
+                            lagoon: '#1DE9B6',     // AegeanLagoon
+                            gold: '#FFD740',        // AegeanGoldenHour
+                            text: '#F5F9FA',        // AegeanFoamWhite
+                            muted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #011A27;
+            color: #F5F9FA;
+        }
+        
+        .glass-panel {
+            background: rgba(1, 26, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00E5FF 0%, #1DE9B6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #011A27;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #063852;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00E5FF;
+        }
+
+        .doc-section {
+            scroll-margin-top: 100px;
+        }
+        
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-aegean-cyan selection:text-aegean-dark">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img src="aegeanbreathlogo.svg" alt="Aegean Breath Logo" class="w-14 h-14 shadow-lg">
+                    <span class="font-bold text-xl tracking-tight text-aegean-text">Aegean Breath</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#features" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Features</a>
+                    <a href="documentation.html" class="text-sm font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors">Documentation</a>
+                    <a href="index.html#pricing" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Pricing</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-aegean-lagoon transition-all transform hover:scale-105 shadow-lg shadow-aegean-cyan/20">
+                        Download App
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-aegean-cyan transition-colors p-2" aria-label="Toggle menu">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-black/50 z-[60] md:hidden"></div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-aegean-dark border-l border-aegean-cyan/20 z-[70] md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold text-xl text-aegean-text">Menu</span>
+                <button id="mobile-menu-close" class="text-gray-300 hover:text-aegean-cyan transition-colors p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <nav class="flex flex-col space-y-4">
+                <a href="index.html#features" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Features</a>
+                <a href="documentation.html" class="text-lg font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Documentation</a>
+                <a href="index.html#pricing" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Pricing</a>
+                <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-3 rounded-full font-semibold text-center hover:bg-aegean-lagoon transition-all mt-4">
+                    Download App
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="pt-32 pb-16 relative overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-aegean-cyan/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-aegean-text mb-6">User Documentation</h1>
+            <p class="text-xl text-gray-400">Everything you need to know about using Aegean Breath to master your breath hold.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="grid lg:grid-cols-4 gap-12">
+            <!-- Sidebar Navigation -->
+            <aside class="hidden lg:block col-span-1">
+                <div class="sticky top-28 p-6 rounded-2xl bg-aegean-surface/20 border border-aegean-cyan/10">
+                    <h3 class="font-bold text-aegean-cyan mb-4 uppercase text-sm tracking-wider">Contents</h3>
+                    <nav class="space-y-3 text-sm">
+                        <a href="#getting-started" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Getting Started</a>
+                        <a href="#home-screen" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Home Screen</a>
+                        <a href="#tables" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Creating Tables</a>
+                        <a href="#training" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Training Sessions</a>
+                        <a href="#max-hold" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Max Breath Hold</a>
+                        <a href="#heart-rate" class="block text-gray-300 hover:text-aegean-cyan transition-colors">Heart Rate Monitor</a>
+                        <a href="#history" class="block text-gray-300 hover:text-aegean-cyan transition-colors">History & Progress</a>
+                        <a href="#safety" class="block text-red-400 hover:text-red-300 transition-colors">Safety Warning</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Content -->
+            <div class="col-span-1 lg:col-span-3 space-y-16">
+                
+                <!-- Getting Started -->
+                <section id="getting-started" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Getting Started</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>Welcome to Aegean Breath! When you first launch the app, you'll see a quick onboarding guide. We recommend going through it to understand the basics.</p>
+                        <h3 class="text-xl font-semibold text-aegean-text mt-8 mb-4">Permissions</h3>
+                        <p>To provide the best experience, the app may ask for a few permissions:</p>
+                        <ul class="list-disc pl-6 space-y-2 mt-4">
+                            <li><strong>Bluetooth:</strong> Required if you want to connect a heart rate monitor.</li>
+                            <li><strong>Notifications:</strong> Used to show the current phase and time remaining in the notification bar while you're training, so you can lock your screen or use other apps.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Home Screen -->
+                <section id="home-screen" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Home Screen Overview</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>The home screen is your central dashboard. From here, you can access all major features:</p>
+                        <ul class="space-y-4 mt-6">
+                            <li class="flex gap-4 items-start">
+                                <div class="w-8 h-8 rounded-full bg-aegean-surface flex items-center justify-center flex-shrink-0 text-aegean-cyan font-bold">1</div>
+                                <div>
+                                    <strong class="text-aegean-text">Max Breath Hold Card:</strong> Shows your personal best time. Tap "New Attempt" to record a new max hold.
+                                </div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-8 h-8 rounded-full bg-aegean-surface flex items-center justify-center flex-shrink-0 text-aegean-cyan font-bold">2</div>
+                                <div>
+                                    <strong class="text-aegean-text">Guided Tables:</strong> This is where you create and manage your training tables (CO2 and O2).
+                                </div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-8 h-8 rounded-full bg-aegean-surface flex items-center justify-center flex-shrink-0 text-aegean-cyan font-bold">3</div>
+                                <div>
+                                    <strong class="text-aegean-text">Quick Access:</strong> Your most recently used tables will appear here for one-tap access.
+                                </div>
+                            </li>
+                            <li class="flex gap-4 items-start">
+                                <div class="w-8 h-8 rounded-full bg-aegean-surface flex items-center justify-center flex-shrink-0 text-aegean-cyan font-bold">4</div>
+                                <div>
+                                    <strong class="text-aegean-text">History & Settings:</strong> Access your training logs and app preferences via the cards at the bottom.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Creating Tables -->
+                <section id="tables" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Creating Tables</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>Tables are the core training method for freediving. You can create three types of tables:</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 mt-8">
+                            <div class="p-6 rounded-2xl bg-aegean-surface/30 border border-aegean-cyan/10">
+                                <h3 class="text-xl font-bold text-aegean-cyan mb-2">CO2 Tolerance</h3>
+                                <p class="text-sm">Builds tolerance to high CO2 levels. Rest times decrease while hold times stay constant.</p>
+                            </div>
+                            <div class="p-6 rounded-2xl bg-aegean-surface/30 border border-aegean-cyan/10">
+                                <h3 class="text-xl font-bold text-aegean-cyan mb-2">O2 Tolerance</h3>
+                                <p class="text-sm">Adapts your body to low oxygen. Hold times increase while rest times stay constant.</p>
+                            </div>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-aegean-text mt-8 mb-4">Auto-Generation</h3>
+                        <p>The easiest way to start is using <strong>Auto-Generate</strong>. When creating a table, toggle the "Auto Generate" switch. The app will use your "Max Breath Hold" time to calculate a personalized table for you. You can adjust the difficulty slider to find the right level.</p>
+                        
+                        <p class="mt-4"><em>Note: You must record a Max Breath Hold first for this feature to work.</em></p>
+                    </div>
+                </section>
+
+                <!-- Training Sessions -->
+                <section id="training" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Training Sessions</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>When you start a table, "Alfie" (our audio guide) will lead you through the session.</p>
+                        
+                        <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-4">Phases</h3>
+                        <ul class="list-disc pl-6 space-y-2">
+                            <li><strong>Breathe (Prep):</strong> Relax and breathe normally. Prepare for the hold.</li>
+                            <li><strong>Hold:</strong> Stop breathing. Relax every muscle.</li>
+                        </ul>
+
+                        <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-4">Contraction Tracking</h3>
+                        <p>During the <strong>Hold</strong> phase, a "Contraction" button will appear. Tap this button each time you feel a diaphragm contraction. This helps you analyze your struggle phase later.</p>
+                        
+                        <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-4">Audio & Haptics</h3>
+                        <p>You can enable voice cues and vibration in <strong>Settings</strong>. This allows you to train "eyes-free" – just listen for the cues or feel the vibration to know when to switch phases.</p>
+                    </div>
+                </section>
+
+                <!-- Max Hold -->
+                <section id="max-hold" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Max Breath Hold</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>This is a simple stopwatch to test your maximum breath-hold duration. It's crucial for the auto-generation algorithm.</p>
+                        <p class="mt-4"><strong>To record:</strong> Tap "New Attempt", then tap anywhere on the screen to start the timer. Tap again to stop. Save your result if you beat your previous best!</p>
+                    </div>
+                </section>
+
+                <!-- Heart Rate -->
+                <section id="heart-rate" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">Heart Rate Monitor</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>Aegean Breath supports standard Bluetooth Low Energy (BLE) heart rate monitors (like chest straps or armbands). Connecting one gives you valuable insight into your Mammalian Dive Reflex.</p>
+                        
+                        <p class="mt-4"><strong>How to Connect:</strong></p>
+                        <ol class="list-decimal pl-6 space-y-2 mt-2">
+                            <li>Go to <strong>Settings</strong>.</li>
+                            <li>Scroll to "Heart Rate Monitor" and tap <strong>Scan</strong>.</li>
+                            <li>Select your device from the list.</li>
+                            <li>Once connected, your heart rate will appear on the Home screen and during training sessions.</li>
+                        </ol>
+                    </div>
+                </section>
+                
+                <!-- History -->
+                <section id="history" class="doc-section">
+                    <h2 class="text-3xl font-bold text-aegean-text mb-6">History & Progress</h2>
+                    <div class="prose prose-invert prose-lg text-gray-400">
+                        <p>Every completed session is saved to your history. You can view your logs in a list or on a calendar.</p>
+                        <p class="mt-4">Tap on any session to see detailed stats, including the total duration, notes you added, and your heart rate graph (if a monitor was connected).</p>
+                    </div>
+                </section>
+
+                <!-- Safety -->
+                <section id="safety" class="doc-section">
+                    <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-8">
+                        <div class="flex items-start gap-4">
+                            <svg class="w-8 h-8 text-red-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <div>
+                                <h2 class="text-2xl font-bold text-red-400 mb-4">Safety Warning</h2>
+                                <p class="text-gray-300 leading-relaxed">
+                                    <strong>NEVER practice breath holding in water alone.</strong><br><br>
+                                    Even in a pool, shallow water blackout can be fatal. Aegean Breath is designed for <strong>dry training only</strong>. Always train lying down on a soft surface like a bed or sofa. If you faint (blackout), you should fall safely onto a soft surface where you can breathe naturally.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-white/5 bg-aegean-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-gray-400 text-sm">
+                    &copy; 2025 Aegean Breath. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm font-medium">
+                    <a href="PRIVACY_POLICY.html" class="text-gray-400 hover:text-aegean-cyan transition-colors">Privacy Policy</a>
+                    <a href="mailto:tsotos@gmail.com" class="text-gray-400 hover:text-aegean-cyan transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic (Same as index.html)
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuOverlay.classList.add('open');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+        if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+        if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    </script>
+</body>
+</html>
