@@ -1,7 +1,7 @@
 # Privacy Policy for Aegean Breath
 
-**Effective Date**: December 5, 2025  
-**Last Updated**: December 5, 2025
+**Effective Date**: December 5, 2025
+**Last Updated**: March 20, 2026
 
 ## Introduction
 
@@ -23,9 +23,10 @@ The App stores the following information locally on your device using secure And
 
 #### 1. Training Data
 *   **Breathing Tables**: Custom CO2 tolerance tables, O2 adaptation tables, and user-defined training routines.
-*   **Session History**: Records of your training sessions including timestamps, duration, and personal notes.
-*   **Performance Metrics**: Contraction timestamps and maximum breath-hold achievements.
+*   **Session History**: Records of your training sessions including timestamps, duration, perceived effort ratings, and personal notes.
+*   **Performance Metrics**: Contraction timestamps, maximum breath-hold achievements, and training load metrics.
 *   **Heart Rate Data**: Heart rate measurements collected from connected Bluetooth devices during training.
+*   **Smart Progression Data**: On-device calculations such as session load (sRPE), completion trends, and load classification used to provide personalized training suggestions. All analysis runs locally on your device — no data is sent to external servers or AI services.
 
 #### 2. App Preferences
 *   **Settings**: Visual themes, audio/haptic preferences, and training configuration options.
@@ -40,8 +41,12 @@ The App requests specific permissions to function correctly. These permissions a
 
 ### Bluetooth & Location
 *   **Purpose**: To connect to compatible Bluetooth Low Energy (BLE) heart rate monitors.
-*   **Permissions**: `BLUETOOTH`, `BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN`.
+*   **Permissions**: `BLUETOOTH`, `BLUETOOTH_ADMIN`, `BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN`.
 *   **Location Note**: On Android 10 and below, `ACCESS_FINE_LOCATION` is required by the OS to scan for Bluetooth devices. We do **not** use this to track your physical location.
+
+### Vibration
+*   **Purpose**: To provide haptic feedback cues during training sessions (e.g., phase transitions and countdowns).
+*   **Permissions**: `VIBRATE`.
 
 ### Foreground Service & Notifications
 *   **Purpose**: To keep the training timer and audio cues running reliably when the screen is off or the app is in the background.
@@ -62,6 +67,10 @@ We strictly limit the use of third-party services to essential functions only.
 *   **No Analytics**: We do not use Google Analytics, Firebase Analytics, or any other user tracking services.
 *   **No Ads**: The app contains no advertisement networks or tracking SDKs.
 *   **No Cloud Storage**: We do not upload your training data to any cloud servers.
+
+## Log Export
+
+The App includes an optional log export feature that lets you share device diagnostic logs for troubleshooting. This is entirely user-initiated — logs are only collected and shared when you explicitly choose to do so through the App's interface. Shared logs may contain device model, Android version, and app-related log messages. No logs are sent automatically.
 
 ## Data Retention and Deletion
 

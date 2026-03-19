@@ -90,7 +90,7 @@
             
             <div class="text-sm text-gray-400 mb-12 space-y-1">
                 <p><strong>Effective Date</strong>: December 5, 2025</p>
-                <p><strong>Last Updated</strong>: December 5, 2025</p>
+                <p><strong>Last Updated</strong>: March 20, 2026</p>
             </div>
 
             <div class="prose prose-invert prose-lg max-w-none space-y-8 text-gray-300">
@@ -115,9 +115,10 @@
                     <h4 class="text-lg font-semibold text-aegean-text mt-4 mb-2">1. Training Data</h4>
                     <ul class="list-disc list-inside space-y-2 ml-4">
                         <li><strong>Breathing Tables</strong>: Custom CO2 tolerance tables, O2 adaptation tables, and user-defined training routines.</li>
-                        <li><strong>Session History</strong>: Records of your training sessions including timestamps, duration, and personal notes.</li>
-                        <li><strong>Performance Metrics</strong>: Contraction timestamps and maximum breath-hold achievements.</li>
+                        <li><strong>Session History</strong>: Records of your training sessions including timestamps, duration, perceived effort ratings, and personal notes.</li>
+                        <li><strong>Performance Metrics</strong>: Contraction timestamps, maximum breath-hold achievements, and training load metrics.</li>
                         <li><strong>Heart Rate Data</strong>: Heart rate measurements collected from connected Bluetooth devices during training.</li>
+                        <li><strong>Smart Progression Data</strong>: On-device calculations such as session load (sRPE), completion trends, and load classification used to provide personalized training suggestions. All analysis runs locally on your device — no data is sent to external servers or AI services.</li>
                     </ul>
 
                     <h4 class="text-lg font-semibold text-aegean-text mt-4 mb-2">2. App Preferences</h4>
@@ -139,8 +140,14 @@
                     <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-3">Bluetooth & Location</h3>
                     <ul class="list-disc list-inside space-y-2 ml-4">
                         <li><strong>Purpose</strong>: To connect to compatible Bluetooth Low Energy (BLE) heart rate monitors.</li>
-                        <li><strong>Permissions</strong>: <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH</code>, <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH_CONNECT</code>, <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH_SCAN</code>.</li>
+                        <li><strong>Permissions</strong>: <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH</code>, <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH_ADMIN</code>, <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH_CONNECT</code>, <code class="bg-aegean-surface/50 px-2 py-1 rounded">BLUETOOTH_SCAN</code>.</li>
                         <li><strong>Location Note</strong>: On Android 10 and below, <code class="bg-aegean-surface/50 px-2 py-1 rounded">ACCESS_FINE_LOCATION</code> is required by the OS to scan for Bluetooth devices. We do <strong>not</strong> use this to track your physical location.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-3">Vibration</h3>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li><strong>Purpose</strong>: To provide haptic feedback cues during training sessions (e.g., phase transitions and countdowns).</li>
+                        <li><strong>Permissions</strong>: <code class="bg-aegean-surface/50 px-2 py-1 rounded">VIBRATE</code>.</li>
                     </ul>
 
                     <h3 class="text-xl font-semibold text-aegean-text mt-6 mb-3">Foreground Service & Notifications</h3>
@@ -171,6 +178,11 @@
                         <li><strong>No Ads</strong>: The app contains no advertisement networks or tracking SDKs.</li>
                         <li><strong>No Cloud Storage</strong>: We do not upload your training data to any cloud servers.</li>
                     </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold text-aegean-text mt-8 mb-4">Log Export</h2>
+                    <p>The App includes an optional log export feature that lets you share device diagnostic logs for troubleshooting. This is entirely user-initiated — logs are only collected and shared when you explicitly choose to do so through the App's interface. Shared logs may contain device model, Android version, and app-related log messages. No logs are sent automatically.</p>
                 </div>
 
                 <div>
