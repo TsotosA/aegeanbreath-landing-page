@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y00619CGQ4";
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y00619CGQ4');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../aegeanbreathlogo.svg">
+    <title>Subscription Fatigue: Why We Built a One-Time Purchase Freediving App | Aegean Breath</title>
+    <meta name="description" content="Why we rejected the subscription model and built Aegean Breath as a one-time purchase breath-hold training app for freedivers and spearfishers.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aegean': {
+                            dark: '#011A27',
+                            surface: '#063852',
+                            cyan: '#00E5FF',
+                            lagoon: '#1DE9B6',
+                            gold: '#FFD740',
+                            text: '#F5F9FA',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #011A27;
+            color: #F5F9FA;
+        }
+
+        .glass-panel {
+            background: rgba(1, 26, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00E5FF 0%, #1DE9B6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .surface-1 { background-color: rgba(0, 229, 255, 0.05); }
+        .surface-2 { background-color: rgba(0, 229, 255, 0.08); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #011A27; }
+        ::-webkit-scrollbar-thumb { background: #063852; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00E5FF; }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        .mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F5F9FA;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-content strong {
+            color: #F5F9FA;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-aegean-cyan selection:text-aegean-dark">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img src="../aegeanbreathlogo.svg" alt="Aegean Breath Logo" class="w-14 h-14 shadow-lg">
+                    <span class="font-bold text-xl tracking-tight text-aegean-text">Aegean Breath</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#features" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Features</a>
+                    <a href="../documentation.html" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Documentation</a>
+                    <a href="../changelog.html" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Changelog</a>
+                    <a href="../index.html#blog" class="text-sm font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors">Blog</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-aegean-lagoon transition-all transform hover:scale-105 shadow-lg shadow-aegean-cyan/20">
+                        Download App
+                    </a>
+                </div>
+
+                <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-aegean-cyan transition-colors p-2" aria-label="Toggle menu">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-black/50 z-[60] md:hidden"></div>
+
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-aegean-dark border-l border-aegean-cyan/20 z-[70] md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold text-xl text-aegean-text">Menu</span>
+                <button id="mobile-menu-close" class="text-gray-300 hover:text-aegean-cyan transition-colors p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="../index.html#features" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Features</a>
+                <a href="../documentation.html" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Documentation</a>
+                <a href="../changelog.html" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Changelog</a>
+                <a href="../index.html#blog" class="text-lg font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Blog</a>
+                <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-3 rounded-full font-semibold text-center hover:bg-aegean-lagoon transition-all mt-4">
+                    Download App
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Article Header -->
+    <header class="pt-32 pb-12 relative overflow-hidden">
+        <div class="absolute top-10 left-1/4 w-[500px] h-[500px] bg-aegean-cyan/8 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute top-40 right-1/4 w-[400px] h-[400px] bg-aegean-lagoon/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="../index.html#blog" class="inline-flex items-center gap-2 text-sm text-aegean-cyan hover:text-aegean-lagoon transition-colors mb-8">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Back to Blog
+            </a>
+            <div class="inline-flex items-center gap-2 bg-aegean-gold/10 border border-aegean-gold/20 rounded-full px-4 py-1.5 mb-6">
+                <span class="text-sm text-aegean-gold font-medium">Opinion</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold mb-6 text-aegean-text leading-tight">
+                Subscription Fatigue: Why We Built a <span class="gradient-text">One-Time Purchase</span> Freediving App
+            </h1>
+            <div class="flex items-center gap-4 text-sm text-gray-400">
+                <time datetime="2026-03-22">March 22, 2026</time>
+                <span class="w-1 h-1 rounded-full bg-gray-600"></span>
+                <span>5 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <article class="article-content">
+            <p>Let's be honest for a second. Nobody likes looking at their monthly bank statement and seeing a dozen tiny, recurring charges for apps they barely use. Five bucks here, ten bucks there. It adds up fast.</p>
+
+            <p>Somewhere along the line, the tech industry decided we shouldn't buy software anymore; we should rent it.</p>
+
+            <p>When we started looking for a reliable apnea training app to prep for spearfishing season, we hit a wall. Almost every decent app out there wanted a monthly or yearly subscription. We had to ask ourselves: why on earth do we need to pay a recurring fee just to have an app tell us when to hold our breath and when to exhale?</p>
+
+            <p>Freediving is fundamentally about simplicity and disconnecting. It's just you, a single breath, and the water. Paying a monthly subscription for a digital timer felt completely backwards to the spirit of the sport.</p>
+
+            <p>So, we decided to build the tool we actually wanted to use. That's how Aegean Breath was born.</p>
+
+            <h2>Focusing on Tools, Not "Services"</h2>
+
+            <p>When companies rely on subscriptions, they are forced to constantly invent new, often unnecessary features just to justify charging you every month. We didn't want to build a "Software as a Service" business. We just wanted a rock-solid training tool.</p>
+
+            <p>By throwing the subscription model out the window, we were able to focus entirely on the core features that actually help divers and spearfishers safely increase their bottom time:</p>
+
+            <div class="space-y-4 my-8">
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>No More Guessing the Math:</strong> We built an algorithm that takes a single "Best Effort" baseline test and automatically generates custom CO2 and O2 tables perfectly tailored to your current fitness level. You don't have to manually tweak intervals.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>True Eyes-Free Training:</strong> You shouldn't have to stare at a glowing screen while trying to relax your heart rate. Our voice assistant, Alfie, guides your entire session with audio cues and haptics. Just close your eyes and focus on your diaphragm.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>100% Offline and Private:</strong> We don't force you to create an account, and we don't sync your data to the cloud. Everything stays on your phone. If you want to run a CO2 table on a boat with zero cell reception, you can.</p>
+                </div>
+            </div>
+
+            <h2>A Fair Deal: Pay Once, Own It Forever</h2>
+
+            <p>We decided to keep the pricing as transparent as the water we want to dive in.</p>
+
+            <p>Aegean Breath is a one-time purchase of <strong>&euro;9.99</strong>. That's it. You buy it once, you own it forever, and you get all future updates. No hidden paywalls, no "premium" tiers, and absolutely no recurring billing.</p>
+
+            <p>We also built in a <strong>14-day free trial</strong>. We want you to actually use it, log some contractions, and see if it genuinely helps your breath-hold before you spend a single dime on it.</p>
+
+            <p>If you are tired of renting your training tools and want an app that respects your wallet as much as your time, we'd love for you to give it a try.</p>
+
+            <!-- CTA -->
+            <div class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-aegean-cyan/10 to-aegean-lagoon/10 border border-aegean-cyan/20 text-center">
+                <p class="text-lg text-aegean-text font-semibold mb-4">Ready to train without the subscription?</p>
+                <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-aegean-cyan to-aegean-lagoon text-aegean-dark px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all transform hover:translate-y-[-2px] shadow-xl shadow-aegean-cyan/20">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.523 15.3414 17.563 15.3414 17.563 15.3414C17.563 15.3414 17.563 15.3414 17.523 15.3414ZM6.361 3.30672L3.958 0.903687C3.806 0.751687 3.559 0.751687 3.406 0.903687C3.254 1.05569 3.254 1.30269 3.406 1.45469L5.727 3.77569C4.069 4.83869 2.924 6.56269 2.608 8.59669H21.425C21.109 6.56369 19.965 4.83969 18.307 3.77569L20.627 1.45469C20.78 1.30269 20.78 1.05569 20.627 0.903687C20.475 0.751687 20.228 0.751687 20.076 0.903687L17.673 3.30672C16.102 2.40272 14.169 1.84969 12.034 1.84969C9.899 1.84969 7.965 2.40272 6.361 3.30672ZM6.849 10.9667C6.849 10.2467 7.433 9.66269 8.153 9.66269C8.873 9.66269 9.457 10.2467 9.457 10.9667C9.457 11.6867 8.873 12.2707 8.153 12.2707C7.433 12.2707 6.849 11.6867 6.849 10.9667ZM14.578 10.9667C14.578 10.2467 15.162 9.66269 15.882 9.66269C16.602 9.66269 17.186 10.2467 17.186 10.9667C17.186 11.6867 16.602 12.2707 15.882 12.2707C15.162 12.2707 14.578 11.6867 14.578 10.9667Z"/></svg>
+                    Download Aegean Breath on Android
+                </a>
+                <p class="text-sm text-gray-400 mt-3">Start your free trial today. Train safe, and see you in the water.</p>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-gray-400 text-sm">
+                    &copy; 2026 Aegean Breath. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm font-medium">
+                    <a href="../PRIVACY_POLICY.html" class="text-gray-400 hover:text-aegean-cyan transition-colors">Privacy Policy</a>
+                    <a href="mailto:tsotos@gmail.com" class="text-gray-400 hover:text-aegean-cyan transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuOverlay.classList.add('open');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+        if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+        if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    </script>
+</body>
+</html>
