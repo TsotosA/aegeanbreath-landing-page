@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y00619CGQ4";
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Y00619CGQ4');
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../aegeanbreathlogo.svg">
+    <title>Why Tracking Your Contractions is the Key to Longer Breath Holds | Aegean Breath</title>
+    <meta name="description" content="Stop just tracking total hold time. Learn why your time to first contraction is the most important metric in apnea training and how to extend your Comfort Phase.">
+    <link rel="canonical" href="https://www.aegeanbreath.com/blog/tracking-contractions-key-longer-breath-holds.html">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.aegeanbreath.com/blog/tracking-contractions-key-longer-breath-holds.html">
+    <meta property="og:title" content="Why Tracking Your Contractions is the Key to Longer Breath Holds">
+    <meta property="og:description" content="Stop just tracking total hold time. Learn why your time to first contraction is the most important metric in apnea training and how to extend your Comfort Phase.">
+    <meta property="og:image" content="https://www.aegeanbreath.com/blog/contractions-tracking.jpg">
+    <meta property="og:site_name" content="Aegean Breath">
+    <meta property="article:published_time" content="2026-03-30">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Why Tracking Your Contractions is the Key to Longer Breath Holds">
+    <meta name="twitter:description" content="90% of divers only track total time. The metric that actually matters is your time to first contraction.">
+    <meta name="twitter:image" content="https://www.aegeanbreath.com/blog/contractions-tracking.jpg">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Why Tracking Your Contractions is the Key to Longer Breath Holds",
+        "datePublished": "2026-03-30",
+        "description": "Stop just tracking total hold time. Learn why your time to first contraction is the most important metric in apnea training and how to extend your Comfort Phase.",
+        "author": { "@type": "Organization", "name": "Aegean Breath" },
+        "publisher": { "@type": "Organization", "name": "Aegean Breath", "logo": { "@type": "ImageObject", "url": "https://www.aegeanbreath.com/aegeanbreathlogo.svg" } },
+        "mainEntityOfPage": "https://www.aegeanbreath.com/blog/tracking-contractions-key-longer-breath-holds.html"
+    }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aegean': {
+                            dark: '#011A27',
+                            surface: '#063852',
+                            cyan: '#00E5FF',
+                            lagoon: '#1DE9B6',
+                            gold: '#FFD740',
+                            text: '#F5F9FA',
+                            muted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #011A27;
+            color: #F5F9FA;
+        }
+
+        .glass-panel {
+            background: rgba(1, 26, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00E5FF 0%, #1DE9B6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .surface-1 { background-color: rgba(0, 229, 255, 0.05); }
+        .surface-2 { background-color: rgba(0, 229, 255, 0.08); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #011A27; }
+        ::-webkit-scrollbar-thumb { background: #063852; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00E5FF; }
+
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+
+        .mobile-menu-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F5F9FA;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #F5F9FA;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-content p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-content strong {
+            color: #F5F9FA;
+            font-weight: 600;
+        }
+
+        .article-content em {
+            color: #94A3B8;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-aegean-cyan selection:text-aegean-dark">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="../index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img src="../aegeanbreathlogo.svg" alt="Aegean Breath Logo" class="w-14 h-14 shadow-lg">
+                    <span class="font-bold text-xl tracking-tight text-aegean-text">Aegean Breath</span>
+                </a>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#features" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Features</a>
+                    <a href="../documentation.html" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Documentation</a>
+                    <a href="../index.html#how-it-works" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">How it Works</a>
+                    <a href="../index.html#screenshots" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Screenshots</a>
+                    <a href="../index.html#pricing" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Pricing</a>
+                    <a href="../changelog.html" class="text-sm font-medium text-gray-300 hover:text-aegean-cyan transition-colors">Changelog</a>
+                    <a href="../index.html#blog" class="text-sm font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors">Blog</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-aegean-lagoon transition-all transform hover:scale-105 shadow-lg shadow-aegean-cyan/20">
+                        Download App
+                    </a>
+                </div>
+
+                <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-aegean-cyan transition-colors p-2" aria-label="Toggle menu">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay fixed inset-0 bg-black/50 z-[60] md:hidden"></div>
+
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-80 bg-aegean-dark border-l border-aegean-cyan/20 z-[70] md:hidden overflow-y-auto">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="font-bold text-xl text-aegean-text">Menu</span>
+                <button id="mobile-menu-close" class="text-gray-300 hover:text-aegean-cyan transition-colors p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-4">
+                <a href="../index.html#features" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Features</a>
+                <a href="../documentation.html" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Documentation</a>
+                <a href="../index.html#how-it-works" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">How it Works</a>
+                <a href="../index.html#screenshots" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Screenshots</a>
+                <a href="../index.html#pricing" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Pricing</a>
+                <a href="../changelog.html" class="text-lg font-medium text-gray-300 hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Changelog</a>
+                <a href="../index.html#blog" class="text-lg font-medium text-aegean-cyan hover:text-aegean-cyan transition-colors py-2 border-b border-aegean-surface/30">Blog</a>
+                <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="bg-aegean-cyan text-aegean-dark px-6 py-3 rounded-full font-semibold text-center hover:bg-aegean-lagoon transition-all mt-4">
+                    Download App
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Article Header -->
+    <header class="pt-32 pb-12 relative overflow-hidden">
+        <div class="absolute top-10 left-1/4 w-[500px] h-[500px] bg-aegean-cyan/8 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute top-40 right-1/4 w-[400px] h-[400px] bg-aegean-lagoon/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="../index.html#blog" class="inline-flex items-center gap-2 text-sm text-aegean-cyan hover:text-aegean-lagoon transition-colors mb-8">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                Back to Blog
+            </a>
+            <div class="inline-flex items-center gap-2 bg-aegean-cyan/10 border border-aegean-cyan/20 rounded-full px-4 py-1.5 mb-6">
+                <span class="text-sm text-aegean-cyan font-medium">Training</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold mb-6 text-aegean-text leading-tight">
+                Why Tracking Your Contractions is the <span class="gradient-text">Key to Longer Breath Holds</span>
+            </h1>
+            <div class="flex items-center gap-4 text-sm text-gray-400">
+                <time datetime="2026-03-30">March 30, 2026</time>
+                <span class="w-1 h-1 rounded-full bg-gray-600"></span>
+                <span>10 min read</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Image -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+        <img src="contractions-tracking.jpg" alt="A freediver training underwater" class="w-full h-64 md:h-96 object-cover rounded-2xl">
+    </div>
+
+    <!-- Article Content -->
+    <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <article class="article-content">
+
+            <p>If you have been freediving or spearfishing for a while, you probably know the frustration of the "plateau."</p>
+
+            <p>You've mastered your breathe-up. You've learned how to trigger your Mammalian Dive Reflex. You've put in the hours on the yoga mat doing your dry training. But for some reason, your personal best (PB) has been stubbornly stuck at the same time for months. Every time you try to push past it, the diaphragm spasms become unbearable, your mind panics, and you bail out.</p>
+
+            <p>When intermediate divers hit this wall, their first instinct is usually just to "suffer more." They try to endure the pain for ten more seconds.</p>
+
+            <p>But brute-forcing your way through the end of a breath-hold is a recipe for central nervous system burnout. If you really want to break through your plateau, you need to stop focusing exclusively on your total time and start measuring the most important metric in apnea training: <strong>your time to first contraction.</strong></p>
+
+            <p>Here is why tracking your contractions is the ultimate secret to unlocking a longer, more comfortable breath-hold.</p>
+
+            <h2>The Anatomy of a Breath Hold: Two Distinct Phases</h2>
+
+            <p>To understand why contractions matter so much, we have to look at the clinical physiology of a breath-hold. According to foundational texts like Umberto Pelizzari's <em>Manual of Freediving</em>, every apnea session is divided into two highly distinct physiological and psychological phases:</p>
+
+            <div class="space-y-4 my-8">
+                <div class="p-6 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <h3 class="mt-0 mb-2">1. The Comfort Phase (The "Easy" Phase)</h3>
+                    <p class="mb-0">This is the period from the moment you take your last breath until your very first involuntary diaphragm contraction. During this window, your oxygen levels are high, your carbon dioxide (CO2) is building but hasn't reached the panic threshold, and your mind is at peace.</p>
+                </div>
+                <div class="p-6 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <h3 class="mt-0 mb-2">2. The Struggle Phase (The Mental Game)</h3>
+                    <p class="mb-0">This phase begins the exact second your body loses voluntary control over your respiratory muscles. From this point until the end of your hold, you are fighting a conscious battle against your body's intense survival instincts.</p>
+                </div>
+            </div>
+
+            <h2>The Science Behind the Spasm</h2>
+
+            <p>Why does the Comfort Phase end? It is not because you are running out of oxygen.</p>
+
+            <p>As you hold your breath, your cellular metabolism continues to produce CO2. Because you aren't exhaling, this CO2 accumulates, causing a shift in your blood's acid-base balance (known clinically as <strong>respiratory acidosis</strong>). You have specialized sensors in your brain called <strong>central chemoreceptors</strong> that monitor this exact pH shift.</p>
+
+            <p>When these receptors detect that your CO2 has crossed a specific threshold, they panic. They send an emergency electrical signal to your brain's respiratory center, which aggressively fires your diaphragm and intercostal muscles. That violent spasm&mdash;the contraction&mdash;is simply your brain physically trying to force you to exhale that toxic CO2.</p>
+
+            <h2>Wait, What Does a Contraction Actually Feel Like?</h2>
+
+            <p>If you are relatively new to dry training, you might be wondering how to identify that exact moment your Comfort Phase ends. It doesn't always start as a massive stomach crunch. Everyone's body is different, but the onset of contractions usually follows a specific progression:</p>
+
+            <div class="space-y-3 my-8">
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>The Swallowing Reflex:</strong> Often the very first sign. You will feel an involuntary urge to swallow or a slight tightening in the back of your throat as your glottis tries to open.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>The Heat Flush:</strong> As CO2 builds, your blood vessels dilate. Many divers feel a sudden wave of warmth in their chest, neck, or face right before the spasms start.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>The Chest Flutter:</strong> The intercostal muscles (the muscles between your ribs) might begin to twitch slightly.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>The Full Spasm:</strong> This is the unmistakable jolt. Your stomach sucks inward, your chest heaves, and your diaphragm aggressively pulls downward, trying to suck air into closed lungs. This is the exact timestamp you need to track.</p>
+                </div>
+            </div>
+
+            <h2>The Metric That Actually Matters</h2>
+
+            <p>Here is the mistake 90% of divers make: they only track their total hold time. Let's look at an example.</p>
+
+            <p>Say your PB is 3:00 minutes. During that hold, your first contraction hits at exactly 1:30. That means you have a Comfort Phase of 90 seconds, and a Struggle Phase of 90 seconds.</p>
+
+            <p>You train hard for a month, and you finally push your PB to 3:15! You celebrate. But what if your first contraction still happened at 1:30?</p>
+
+            <div class="my-8 p-6 rounded-xl surface-2 border border-aegean-cyan/10">
+                <p class="mb-0">Physiologically, your CO2 tolerance hasn't actually improved at all. Your brain's chemoreceptors are still hitting the panic button at the exact same moment. You haven't made the dive easier; you have simply forced your brain to endure 15 extra seconds of pure hypercapnic suffering. Eventually, your nervous system will refuse to tolerate any more stress, and you will hit a permanent wall.</p>
+            </div>
+
+            <p><strong>The true goal of dry training is not to lengthen the Struggle Phase. The goal is to lengthen the Comfort Phase.</strong></p>
+
+            <h2>3 Quick Ways to Extend Your Comfort Phase Today</h2>
+
+            <p>If you want to push that first contraction further down the clock, you have to slow down the rate at which your body produces CO2. Here are three things you can change today to see immediate improvements:</p>
+
+            <div class="space-y-3 my-8">
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>Ditch the Pre-Training Coffee:</strong> Caffeine is a stimulant that artificially raises your resting heart rate. A faster-beating heart burns oxygen faster and produces CO2 faster, which guarantees your contractions will start earlier. Save the coffee for after your dry training.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>Train on an Empty Stomach:</strong> Digestion requires a massive amount of energy and blood flow. If you try to run an apnea table an hour after eating a heavy meal, your body is working overtime, creating excess CO2. Always train fasted or at least 3-4 hours after eating.</p>
+                </div>
+                <div class="p-5 rounded-xl surface-2 border border-aegean-cyan/10">
+                    <p class="mb-0"><strong>Master the "Body Scan":</strong> Muscular tension creates CO2. Before you take your final breath, do a mental scan starting from your toes and moving up to your forehead. Consciously turn off every muscle. Pay special attention to your jaw, your shoulders, and your hands&mdash;these are where divers hold the most subconscious tension.</p>
+                </div>
+            </div>
+
+            <h2>How to Track Your Progress (Without Ruining Your Hold)</h2>
+
+            <p>The timestamp of your first contraction is the purest, most accurate biometric marker of your CO2 tolerance. But tracking it manually is a nightmare.</p>
+
+            <p>If you use a standard phone stopwatch, you have to keep your eyes open, wait for the spasm, memorize the timestamp on the screen, and then try to remember that number while finishing the rest of your heavy CO2 table. It breaks your relaxation completely.</p>
+
+            <p>This specific problem is exactly why we built Contraction Tracking directly into the Aegean Breath app.</p>
+
+            <p>We wanted a way to measure our Comfort Phase without breaking our focus. When you run an auto-generated CO2 or O2 table in Aegean Breath, you keep your eyes closed and let our audio guide, Alfie, do the talking. The exact second you feel that first diaphragm flutter, you simply tap anywhere on your phone screen.</p>
+
+            <p>That's it. You don't look at the time. You just tap and go back to relaxing.</p>
+
+            <p>The app instantly logs that timestamp. Over weeks of training, Aegean Breath graphs this data, allowing you to visually see your Comfort Phase expanding. You can finally prove that your CO2 tolerance is actually improving, rather than just guessing.</p>
+
+            <!-- CTA -->
+            <div class="mt-12 p-8 rounded-2xl bg-gradient-to-r from-aegean-cyan/10 to-aegean-lagoon/10 border border-aegean-cyan/20 text-center">
+                <p class="text-lg text-aegean-text font-semibold mb-2">Stop guessing. Start measuring.</p>
+                <p class="text-sm text-gray-400 mb-6">If you are stuck on a plateau, stop just trying to hold your breath longer. Start targeting the root of the problem.</p>
+                <a href="https://play.google.com/store/apps/details?id=com.aegeanbreath" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-aegean-cyan to-aegean-lagoon text-aegean-dark px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-all transform hover:translate-y-[-2px] shadow-xl shadow-aegean-cyan/20">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.523 15.3414C17.523 15.3414 17.563 15.3414 17.563 15.3414C17.563 15.3414 17.563 15.3414 17.523 15.3414ZM6.361 3.30672L3.958 0.903687C3.806 0.751687 3.559 0.751687 3.406 0.903687C3.254 1.05569 3.254 1.30269 3.406 1.45469L5.727 3.77569C4.069 4.83869 2.924 6.56269 2.608 8.59669H21.425C21.109 6.56369 19.965 4.83969 18.307 3.77569L20.627 1.45469C20.78 1.30269 20.78 1.05569 20.627 0.903687C20.475 0.751687 20.228 0.751687 20.076 0.903687L17.673 3.30672C16.102 2.40272 14.169 1.84969 12.034 1.84969C9.899 1.84969 7.965 2.40272 6.361 3.30672ZM6.849 10.9667C6.849 10.2467 7.433 9.66269 8.153 9.66269C8.873 9.66269 9.457 10.2467 9.457 10.9667C9.457 11.6867 8.873 12.2707 8.153 12.2707C7.433 12.2707 6.849 11.6867 6.849 10.9667ZM14.578 10.9667C14.578 10.2467 15.162 9.66269 15.882 9.66269C16.602 9.66269 17.186 10.2467 17.186 10.9667C17.186 11.6867 16.602 12.2707 15.882 12.2707C15.162 12.2707 14.578 11.6867 14.578 10.9667Z"/></svg>
+                    Download Aegean Breath on Google Play
+                </a>
+                <p class="text-sm text-gray-400 mt-3">Use the 14-day free trial. Run a custom CO2 table, log your contractions with a single tap, and watch your Comfort Phase grow.</p>
+            </div>
+
+            <!-- References -->
+            <div class="mt-16 pt-8 border-t border-white/10">
+                <h2 class="text-base font-semibold text-gray-400 uppercase tracking-widest mb-6">References &amp; Further Reading</h2>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li>Pelizzari, U., &amp; Tovaglieri, S. (2001). <em>Manual of Freediving: Underwater on a Single Breath.</em> Idelson-Gnocchi. (Foundational text outlining the psychological and physiological divide between the "Comfort Phase" and the "Struggle Phase").</li>
+                    <li>DeeperBlue. <em>The Physiology of Freediving: Breath Hold &amp; CO2 Tolerance.</em> <a href="https://www.deeperblue.com/" target="_blank" class="hover:text-aegean-cyan transition-colors">deeperblue.com</a> (Authoritative breakdown of how cellular metabolism produces CO2 during apnea and triggers the mammalian dive reflex).</li>
+                    <li>Guyton, A.C., &amp; Hall, J.E. (2006). <em>Textbook of Medical Physiology.</em> Elsevier Saunders. (Standard medical reference detailing respiratory acidosis, the hypercapnic drive to breathe, and the function of central chemoreceptors).</li>
+                    <li>Schagatay, E. (2009). Predicting performance in competitive apnea diving. <em>Journal of Applied Physiology.</em> (Scientific study demonstrating that delaying the onset of involuntary respiratory contractions is a primary factor in extending total breath-hold time).</li>
+                </ul>
+            </div>
+
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-gray-400 text-sm">
+                    &copy; 2026 Aegean Breath. All rights reserved.
+                </div>
+                <div class="flex gap-6 text-sm font-medium">
+                    <a href="../PRIVACY_POLICY.html" class="text-gray-400 hover:text-aegean-cyan transition-colors">Privacy Policy</a>
+                    <a href="mailto:tsotos@gmail.com" class="text-gray-400 hover:text-aegean-cyan transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuOverlay.classList.add('open');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.remove('open');
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+        if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+        if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+    </script>
+</body>
+</html>
