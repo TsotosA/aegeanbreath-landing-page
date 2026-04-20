@@ -7,3 +7,9 @@ include:
   - index.html
   - robots.txt
   - sitemap.xml
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tailwind.config.js
+  - src
